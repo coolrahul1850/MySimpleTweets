@@ -9,6 +9,7 @@ import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
+	private final int REQUEST_CODE = 20;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -16,7 +17,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	}
 
 
-	// Inflate the menu; this adds items to the action bar if it is present.
+	// Inflate the menu_main; this adds items to the action bar if it is present.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.login, menu);
@@ -27,9 +28,9 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		 Intent i = new Intent(this, TimelineActivity.class);
-		 startActivity(i);
-
+		 Intent i = new Intent(LoginActivity.this, TimelineActivity.class);
+		i.putExtra("mode",2);
+		 startActivityForResult(i, REQUEST_CODE);
 
 	}
 

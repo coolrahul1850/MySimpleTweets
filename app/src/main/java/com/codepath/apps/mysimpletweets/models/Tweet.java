@@ -1,6 +1,8 @@
 package com.codepath.apps.mysimpletweets.models;
 
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +19,9 @@ public class Tweet {
     private User user; //store embeded a user object
     private String createdAt;
 
+    //the max since id
+    public static long since_id = 0L;
+
     //Desearilize the JSON and build Tweet Objects
 
     public String getBody() {
@@ -27,9 +32,15 @@ public class Tweet {
         return uid;
     }
 
+    public long getSince_id()
+    {
+        return since_id;
+    }
     public String getCreatedAt() {
         return createdAt;
     }
+
+
 
     public User getUser() {
         return user;
@@ -46,6 +57,12 @@ public class Tweet {
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+            Log.d("Tweet ID", tweet.uid+"");
+            if (since_id > tweet.uid)
+            {
+                since_id = tweet.uid;
+                Log.d("Since id",since_id+"");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,6 +84,10 @@ public class Tweet {
             try {
                 JSONObject tweetJson = jsonArray.getJSONObject(i);
                 Tweet tweet = Tweet.fromJSON(tweetJson);
+                if (i==0)
+                {
+                    since_id = tweet.uid;
+                }
                 if (tweet!=null)
                 {
                     tweets.add(tweet);
@@ -79,4 +100,6 @@ public class Tweet {
         }
         return tweets;
     }
+
+
 }
