@@ -41,7 +41,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         tvBody.setText(tweet.getBody());
 
         ParseRelativeDate tvDate = new ParseRelativeDate();
-        tvRelativeDate.setText(tvDate.getRelativeTimeAgo(tweet.getCreatedAt()));
+      tvRelativeDate.setText(tvDate.getRelativeTimeAgo(tweet.getCreatedAt()));
 
         ivProfileImage.setImageResource(android.R.color.transparent);
 

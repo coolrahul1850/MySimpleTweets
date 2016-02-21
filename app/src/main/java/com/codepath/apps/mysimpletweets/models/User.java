@@ -30,6 +30,22 @@ public class User {
 
 //desearialize the user Json ==> User
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     public static User fromJSON(JSONObject json)
     {
         User u = new User();

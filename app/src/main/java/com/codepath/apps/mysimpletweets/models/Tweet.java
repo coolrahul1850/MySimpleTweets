@@ -12,6 +12,21 @@ import java.util.ArrayList;
 
 //Parse the JSON + Store the data, encapsultate state logic or display logic
 public class Tweet {
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
     //list out the attributes
     private String body;

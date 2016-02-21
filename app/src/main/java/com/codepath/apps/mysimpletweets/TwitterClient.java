@@ -1,7 +1,6 @@
 package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.codepath.oauth.OAuthBaseClient;
@@ -34,10 +33,6 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count", 20);
 		params.put("since_id",1);
-		//params.put("max_id",700514117858099200L);
-		//
-	//	params.put("max_id",);
-		//Execute the request
 		getClient().get(apiUrl, params, handler);
 	}
 
@@ -57,9 +52,13 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", ComposeTweet.composeTweet);
 
 		getClient().post(apiUrl, params, handler);
-		Log.d("Compose", ComposeTweet.composeTweet);
-		Log.d("Since id",Tweet.since_id+"");
 	}
-	
+
+	public void getUserDetails(AsyncHttpResponseHandler handler)
+	{
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		getClient().get(apiUrl,handler);
+	}
+
 
 }

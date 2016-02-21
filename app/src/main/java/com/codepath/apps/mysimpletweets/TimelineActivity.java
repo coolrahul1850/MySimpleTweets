@@ -2,6 +2,7 @@ package com.codepath.apps.mysimpletweets;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.codepath.apps.mysimpletweets.models.Tweet;
+import com.codepath.apps.mysimpletweets.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -19,24 +21,48 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
-    private ListView lvTweets;
+  //  private ListView lvTweets;
 
     private static long staticSinceId;
     private final int REQUEST_CODE = 200;
+
+    //private SwipeRefreshLayout swipeContainer;
+
+    @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
+    @Bind(R.id.lvTweets) ListView lvTweets;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        ButterKnife.bind(this);
+        //Swipe down to refresh
+      //  swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync(0);
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
 
-
-        lvTweets = (ListView) findViewById(R.id.lvTweets);
+      //  lvTweets = (ListView) findViewById(R.id.lvTweets);
         //Create the arraylist
         tweets = new ArrayList<>();
         aTweets = new TweetsArrayAdapter(this, tweets);
@@ -50,15 +76,23 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
+      //  Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
         setSupportActionBar(toolbar);
         //Get the client
         client = TwitterApplication.getRestClient(); //singleton client
         populateTimeLine();
     }
 
-    //Menu icons are inflated just as they were actionbar
+    public void fetchTimelineAsync (int page)
+    {
+        aTweets.clear();
+        populateTimeLine();
+        swipeContainer.setRefreshing(false);
+    }
 
+
+
+//Menu icons are inflated just as they were actionbar
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,8 +130,23 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void btnComposeTweet(MenuItem item) {
-        Intent composeIntent = new Intent(TimelineActivity.this,ComposeTweet.class);
-        startActivityForResult(composeIntent,200);
+        client.getUserDetails(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                User u = User.fromJSON(response);
+                Intent i = new Intent(TimelineActivity.this, ComposeTweet.class);
+                i.putExtra("username", u.getScreenName());
+                i.putExtra("user_profile_image", u.getProfileImageUrl());
+                startActivityForResult(i, 200);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+        });
+
     }
 
     @Override
@@ -107,10 +156,24 @@ public class TimelineActivity extends AppCompatActivity {
             String name = data.getExtras().getString("name");
             Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
             Tweet recentTweet = new Tweet();
+            User u = new User();
+            String username = data.getExtras().getString("username");
+            u.setName(username);
+            u.setScreenName(username);
+
+
+            String userProfilePicture = data.getExtras().getString("user_profile_picture");
+            u.setProfileImageUrl(userProfilePicture);
+            String body = data.getExtras().getString("body");
+
+            recentTweet.setUser(u);
+            recentTweet.setBody(body);
+            recentTweet.setUid(45L);
+            recentTweet.setCreatedAt(null);
+            recentTweet.setCreatedAt(null);
+            aTweets.clear();
+            aTweets.add(recentTweet);
             populateTimeLine();
-            aTweets.notifyDataSetChanged();
-
-
         }
     }
 }
