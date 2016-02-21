@@ -28,38 +28,29 @@ public class ComposeTweet extends AppCompatActivity  {
 
     private TwitterClient client;
     public static String composeTweet;
-    ImageView userProfilePicture;
-    TextView userName;
-  //  TextView tvCharacterCounter;
     public static int remainingCounter;
 
     @Bind (R.id.composeText) EditText tvComposeTweet;
     @Bind (R.id.tvCharacterCounter) TextView tvCharacterCounter;
-    
+    @Bind (R.id.composetoolbar) Toolbar composetoolbar;
+    @Bind (R.id.userProfilePicture) ImageView userProfilePicture;
+    @Bind (R.id.userName) TextView userName;
 
-
- //   EditText tvComposeTweet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose_tweet);
 
         ButterKnife.bind(this);
-    //    tvComposeTweet = (EditText)findViewById(R.id.composeText);
         tvComposeTweet.addTextChangedListener(mTextEditorWatcher);
-
-     //   tvCharacterCounter = (TextView)findViewById(R.id.tvCharacterCounter);
         tvCharacterCounter.setText("140");
 
         client = TwitterApplication.getRestClient();
-        Toolbar composetoolbar = (Toolbar) findViewById (R.id.composetoolbar);
         setSupportActionBar(composetoolbar);
 
-        userProfilePicture = (ImageView) findViewById(R.id.userProfilePicture);
         userProfilePicture.setImageResource(android.R.color.transparent);
         Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("user_profile_image")).into(userProfilePicture);
 
-        userName = (TextView) findViewById(R.id.userName);
         userName.setText(getIntent().getStringExtra("username"));
         userName.setTextSize(25L);
 
@@ -77,10 +68,7 @@ public class ComposeTweet extends AppCompatActivity  {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-           // Log.d("Hey","Hey");
-
             remainingCounter = 140 - Integer.valueOf(tvComposeTweet.length());
-         //   tvCharacterCounter.setText(String.valueOf(tvComposeTweet.length()));
             tvCharacterCounter.setText(String.valueOf(remainingCounter));
 
         }
@@ -90,7 +78,6 @@ public class ComposeTweet extends AppCompatActivity  {
 
         }
     };
-
 
 
     @Override

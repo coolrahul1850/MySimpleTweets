@@ -29,17 +29,12 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
-  //  private ListView lvTweets;
-
     private static long staticSinceId;
     private final int REQUEST_CODE = 200;
-
-    //private SwipeRefreshLayout swipeContainer;
 
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
     @Bind(R.id.lvTweets) ListView lvTweets;
     @Bind(R.id.toolbar) Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +42,6 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
         //Swipe down to refresh
-      //  swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -61,8 +55,6 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
-      //  lvTweets = (ListView) findViewById(R.id.lvTweets);
         //Create the arraylist
         tweets = new ArrayList<>();
         aTweets = new TweetsArrayAdapter(this, tweets);
@@ -76,7 +68,6 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         //toolbar
-      //  Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
         setSupportActionBar(toolbar);
         //Get the client
         client = TwitterApplication.getRestClient(); //singleton client

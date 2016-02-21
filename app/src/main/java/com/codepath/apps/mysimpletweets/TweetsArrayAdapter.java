@@ -18,6 +18,7 @@ import java.util.List;
 
 public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
+
     public TweetsArrayAdapter (Context context, List<Tweet> tweets)
     {
         super(context,android.R.layout.simple_list_item_1, tweets);
@@ -25,6 +26,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         //1. Get the tweet
         Tweet tweet = getItem(position);
         //2. find or inflate the template
