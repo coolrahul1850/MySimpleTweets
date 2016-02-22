@@ -156,8 +156,8 @@ public class TimelineActivity extends AppCompatActivity {
             User u = new User();
             String username = data.getExtras().getString("username");
             String screenName = data.getExtras().getString("screenname");
-            u.setName(username);
-            u.setScreenName(screenName);
+            u.setName(screenName);
+            u.setScreenName(username);
 
 
             String userProfilePicture = data.getExtras().getString("user_profile_picture");
