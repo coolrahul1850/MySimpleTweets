@@ -2,6 +2,7 @@ package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
 
+import com.codepath.apps.mysimpletweets.activity.ComposeTweet;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
