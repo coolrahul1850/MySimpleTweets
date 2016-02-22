@@ -38,6 +38,8 @@ public class ComposeTweet extends AppCompatActivity  {
     @Bind (R.id.composetoolbar) Toolbar composetoolbar;
     @Bind (R.id.userProfilePicture) ImageView userProfilePicture;
     @Bind (R.id.userName) TextView userName;
+    public String screenName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class ComposeTweet extends AppCompatActivity  {
 
         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Roboto-Regular.ttf");
         userName.setTypeface(font);
+
+        screenName = getIntent().getStringExtra("screenname");
 
     }
 
@@ -111,6 +115,7 @@ public class ComposeTweet extends AppCompatActivity  {
         data.putExtra("code", 20);
         data.putExtra("username",userName.getText());
         data.putExtra("user_profile_picture", getIntent().getStringExtra("user_profile_image"));
+        data.putExtra("screenname",screenName);
         setResult(RESULT_OK, data);
         finish();
     }

@@ -40,9 +40,11 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         TextView tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
         TextView tvBody = (TextView) convertView.findViewById(R.id.tvBody);
         TextView tvRelativeDate = (TextView) convertView.findViewById(R.id.tvRelativeDate);
+        TextView tvScreenName = (TextView) convertView.findViewById(R.id.tvScreenName);
 
-        tvUserName.setText(tweet.getUser().getScreenName());
+        tvUserName.setText("@"+ tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
+        tvScreenName.setText("  "+tweet.getUser().getName());
 
         ParseRelativeDate tvDate = new ParseRelativeDate();
       tvRelativeDate.setText(tvDate.getRelativeTimeAgo(tweet.getCreatedAt()));

@@ -133,6 +133,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Intent i = new Intent(TimelineActivity.this, ComposeTweet.class);
                 i.putExtra("username", u.getScreenName());
                 i.putExtra("user_profile_image", u.getProfileImageUrl());
+                i.putExtra("screenname", u.getName());
                 startActivityForResult(i, 200);
 
             }
@@ -154,8 +155,9 @@ public class TimelineActivity extends AppCompatActivity {
             Tweet recentTweet = new Tweet();
             User u = new User();
             String username = data.getExtras().getString("username");
+            String screenName = data.getExtras().getString("screenname");
             u.setName(username);
-            u.setScreenName(username);
+            u.setScreenName(screenName);
 
 
             String userProfilePicture = data.getExtras().getString("user_profile_picture");
@@ -165,6 +167,7 @@ public class TimelineActivity extends AppCompatActivity {
             recentTweet.setUser(u);
             recentTweet.setBody(body);
             recentTweet.setUid(45L);
+
             recentTweet.setCreatedAt(null);
             recentTweet.setCreatedAt(null);
             aTweets.clear();
