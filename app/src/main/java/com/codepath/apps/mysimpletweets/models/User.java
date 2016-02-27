@@ -11,6 +11,9 @@ public class User {
     private long uid;
     private String screenName;
     private String profileImageUrl;
+    private String tagLine;
+    private int followersCount;
+    private int followingCount;
 
     public String getName() {
         return name;
@@ -46,8 +49,32 @@ public class User {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public static User fromJSON(JSONObject json)
+    public String getTagLine() {
+        return tagLine;
+    }
+
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public static User fromJSONShowUser (JSONObject json)
     {
+        User u = new User();
+
+        try{
+            u.name = json.getString("name");
+        }catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    public static User fromJSON(JSONObject json) {
         User u = new User();
         try {
 
@@ -55,6 +82,10 @@ public class User {
             u.uid = json.getLong("id");
             u.screenName = json.getString("screen_name");
             u.profileImageUrl = json.getString("profile_image_url");
+            u.tagLine = json.getString("description");
+            u.followersCount = json.getInt("followers_count");
+            u.followingCount = json.getInt("friends_count");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

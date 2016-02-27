@@ -6,12 +6,11 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/composetoolbar"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="#55acee">
-    </android.support.v7.widget.Toolbar>
+        android:background="#55acee"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
 
     <!-- Layout for content is here. This can be a RelativeLayout  -->
 

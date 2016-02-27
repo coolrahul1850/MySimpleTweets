@@ -1,8 +1,6 @@
 package com.codepath.apps.mysimpletweets.models;
 
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,14 +45,13 @@ public class Tweet {
         return uid;
     }
 
-    public long getSince_id()
-    {
+    public long getSince_id() {
         return since_id;
     }
+
     public String getCreatedAt() {
         return createdAt;
     }
-
 
 
     public User getUser() {
@@ -62,8 +59,7 @@ public class Tweet {
     }
     // Tweet.fromJSON("{....}") ==> Tweet
 
-    public static Tweet fromJSON (JSONObject jsonObject)
-    {
+    public static Tweet fromJSON(JSONObject jsonObject) {
         Tweet tweet = new Tweet();
         //Extract the values from JSON, store them
         try {
@@ -72,16 +68,13 @@ public class Tweet {
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
-            Log.d("Tweet ID", tweet.uid+"");
-            if (since_id > tweet.uid)
-            {
+            if (since_id > tweet.uid) {
                 since_id = tweet.uid;
-                Log.d("Since id",since_id+"");
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
 
         //Return the tweet object
@@ -90,21 +83,17 @@ public class Tweet {
     }
 
     //Tweet.fromJSONArray ==> List<Tweet>
-    public static ArrayList<Tweet> fromJSONArray (JSONArray jsonArray)
-    {
+    public static ArrayList<Tweet> fromJSONArray(JSONArray jsonArray) {
         ArrayList<Tweet> tweets = new ArrayList<>();
         //Iterate the JSON array
-        for (int i=0;i<jsonArray.length();i++)
-        {
+        for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject tweetJson = jsonArray.getJSONObject(i);
                 Tweet tweet = Tweet.fromJSON(tweetJson);
-                if (i==0)
-                {
+                if (i == 0) {
                     since_id = tweet.uid;
                 }
-                if (tweet!=null)
-                {
+                if (tweet != null) {
                     tweets.add(tweet);
                 }
             } catch (JSONException e) {

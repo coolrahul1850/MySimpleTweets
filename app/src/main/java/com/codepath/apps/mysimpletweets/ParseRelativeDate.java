@@ -9,18 +9,15 @@ import java.util.Locale;
 
 public class ParseRelativeDate {
 
-    public String getRelativeTimeAgo (String rawJsonDate)
-    {   String relativeDate ="";
+    public String getRelativeTimeAgo(String rawJsonDate) {
+        String relativeDate = "";
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
         sf.setLenient(true);
 
-        if(rawJsonDate==null)
-        {
+        if (rawJsonDate == null) {
             return relativeDate = "1 second ago";
-        }
-        else
-        {
+        } else {
             try {
                 long dateMillis = sf.parse(rawJsonDate).getTime();
                 relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
@@ -30,7 +27,6 @@ public class ParseRelativeDate {
                 e.printStackTrace();
             }
         }
-
 
 
         return relativeDate;

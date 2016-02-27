@@ -3,8 +3,5 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/miNewTweet"
-        android:title ="New Tweet"
-        app:showAsAction="always"
-        >
-    </item>
+        app:showAsAction="always"></item>
 </menu>
