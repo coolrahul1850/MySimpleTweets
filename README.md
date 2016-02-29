@@ -21,7 +21,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [partial complete] User can view following / followers list through the profile
+* [complete] User can view following / followers list through the profile
 * [ ] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
 * [ ] When a network request is sent, user sees an [indeterminate progress indicator](http://guides.codepath.com/android/Handling-ProgressBars#progress-within-actionbar)
 * [ ] User can **"reply" to any tweet on their home timeline**
@@ -34,7 +34,7 @@ The following **optional** features are implemented:
 The following **bonus** features are implemented:
 
 * [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
-* [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
+* [complete] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
 * [ ] User can view their direct messages (or send new ones)
 
 The following **additional** features are implemented:
@@ -46,6 +46,9 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 <a href="http://imgur.com/uwhmneh"><img src="http://i.imgur.com/uwhmneh.gif" title="source: imgur.com" /></a>
+
+Walkthrough to see optional view following/followers list
+<a href="http://imgur.com/TVgKhts"><img src="http://i.imgur.com/TVgKhts.gif" title="source: imgur.com" /></a>
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

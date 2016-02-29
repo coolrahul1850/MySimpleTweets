@@ -21,8 +21,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -56,23 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        //get list of followers
-        client.getFollowersList(screenName, new JsonHttpResponseHandler() {
-            User u;
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray json = new JSONArray();
-                try {
-                    json = response.getJSONArray("users");
-                    for (int i = 0; i < json.length(); i++) {
-                        u = User.fromJSON(json.getJSONObject(i));
-                    //    Log.d("Following", u.getName());
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
 
         if (savedInstanceState == null) {
             //Create the user timeline fragment
@@ -113,7 +95,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent (ProfileActivity.this, FollowingActivity.class);
-                startActivity(i);
+                i.putExtra("screenName", screenName);
+                startActivityForResult(i,200);
             }
         });
 

@@ -3,10 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.codepath.apps.mysimpletweets.activity.FollowingActivity">
+    tools:context="com.codepath.apps.mysimpletweets.activity.FollowersActivity">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/followersToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvfollowingListView"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/followersToolbar"/>
 </RelativeLayout>

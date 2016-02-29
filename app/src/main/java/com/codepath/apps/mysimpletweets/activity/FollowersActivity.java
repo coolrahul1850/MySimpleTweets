@@ -3,7 +3,6 @@ package com.codepath.apps.mysimpletweets.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -22,39 +21,39 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class FollowersActivity extends AppCompatActivity {
 
-    Toolbar followersToolbar;
+    //Toolbar followersToolbar;
     public String screenName;
     TwitterClient client;
     private ArrayList<User> arrayUsers;
     private FollowersArrayAdapter adapterUsers;
-    private ListView lvUsers;
-
-
+    @Bind (R.id.lvfollowersListView) ListView lvUsers;
+    @Bind (R.id.toolbar) Toolbar followersToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers);
+        ButterKnife.bind(this);
         screenName = getIntent().getStringExtra("screenName");
-        Log.d("screename",screenName);
-        client = TwitterApplication.getRestClient();
-        adapterUsers = new FollowersArrayAdapter(this,arrayUsers);
-        arrayUsers = new ArrayList<>();
 
-        lvUsers = (ListView) findViewById(R.id.lvFollowers);
-        Log.d("vvvvv",adapterUsers.toString());
-//        lvUsers.setAdapter(adapterUsers);
-    //    lvUsers.setAdapter(adapterUsers);
+        client = TwitterApplication.getRestClient();
+        arrayUsers = new ArrayList<>();
+        adapterUsers = new FollowersArrayAdapter(this,arrayUsers);
+
+       // ListView lvUsers = (ListView) findViewById(R.id.lvfollowersListView);
+
+        lvUsers.setAdapter(adapterUsers);
 
         populateFollowers(screenName);
 
-        followersToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //followersToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(followersToolbar);
-     //   getSupportActionBar().setTitle("Followers list");
-
-
+        getSupportActionBar().setTitle("@" + screenName + " Followers list");
 
 
     }
@@ -72,11 +71,11 @@ public class FollowersActivity extends AppCompatActivity {
                     for (int i = 0; i < json.length(); i++) {
                         user = User.fromJSON(json.getJSONObject(i));
                         arrayUsers.add(user);
-                        Log.d("Name", arrayUsers.get(i).getName());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                adapterUsers.notifyDataSetChanged();
             }
         });
     }

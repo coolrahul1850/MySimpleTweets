@@ -10,7 +10,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#e0caca" />
+        android:background="#e0caca"
+        android:paddingRight="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +20,8 @@
         android:text="Large Text"
         android:id="@+id/lvFollowersScreenName"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/lvFollowersUserName"
+        android:layout_alignStart="@+id/lvFollowersUserName" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +29,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/lvFollowersUserName"
-        android:layout_below="@+id/lvFollowersScreenName"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lvFollowersScreenName" />
 
 </RelativeLayout>

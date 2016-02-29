@@ -65,10 +65,6 @@ public class ComposeTweet extends AppCompatActivity {
         screenName = getIntent().getStringExtra("username");
         getSupportActionBar().setTitle("@" + screenName + " New Tweet");
 
-
-
-
-
     }
 
 
