@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
+import com.codepath.apps.mysimpletweets.activity.TimelineActivity;
 import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -25,8 +26,12 @@ public class HomeTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient(); //singleton client
         populateTimeLine();
+        composeFlag();
 
     }
+
+
+
 
 
     @Override
@@ -57,14 +62,22 @@ public class HomeTimelineFragment extends TweetsListFragment {
             //Success
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-              //  aTweets.addAll(Tweet.fromJSONArray(json));
                 addAll(Tweet.fromJSONArray(json));
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("Debug", errorResponse.toString());
             }
         });
+    }
+
+    private void composeFlag ()
+    {
+        if (TimelineActivity.composeflag == 1)
+        {
+            Log.d("This","This");
+        }
     }
 
 }

@@ -35,6 +35,8 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         swipeContainer.setRefreshing(false);
     }
 
+
+
     private void populateTimeLine() {
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             //Success

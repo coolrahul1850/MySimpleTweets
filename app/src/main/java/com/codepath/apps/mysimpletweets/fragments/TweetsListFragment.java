@@ -108,10 +108,11 @@ public class TweetsListFragment extends Fragment {
 
 
     public void fetchTimelineAsync(int page, SwipeRefreshLayout swipeContainer, TweetsArrayAdapter aTweets) {
-        //going to be override in fragements
+
     }
 
     public void customLoadMoreDataFromApi(int offset) {
+
 
     }
 
@@ -126,6 +127,11 @@ public class TweetsListFragment extends Fragment {
 
     public void addAll(List<Tweet> tweets) {
         aTweets.addAll(tweets);
+    }
+
+    public void addRecent (Tweet tweet)
+    {
+        aTweets.add(tweet);
     }
 
 

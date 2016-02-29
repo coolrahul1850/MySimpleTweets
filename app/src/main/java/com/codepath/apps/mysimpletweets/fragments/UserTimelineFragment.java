@@ -3,10 +3,12 @@ package com.codepath.apps.mysimpletweets.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
+import com.codepath.apps.mysimpletweets.adapters.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -34,6 +36,28 @@ public class UserTimelineFragment extends TweetsListFragment {
         args.putString("screen_name", screen_name);
         userFragment.setArguments(args);
         return userFragment;
+    }
+
+
+    @Override
+    public void customLoadMoreDataFromApi(int offset) {
+        long since_id = Tweet.since_id;
+        String screenName = getArguments().getString("screen_name");
+        client.getScrollUserHomeTimeline(since_id, screenName, new JsonHttpResponseHandler()
+        {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                addAll(Tweet.fromJSONArray(json));
+            }
+        });
+
+    }
+
+    @Override
+    public void fetchTimelineAsync(int page, SwipeRefreshLayout swipeContainer, TweetsArrayAdapter aTweets) {
+        aTweets.clear();
+        populateTimeLine();
+        swipeContainer.setRefreshing(false);
     }
 
     private void populateTimeLine() {

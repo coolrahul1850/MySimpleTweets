@@ -42,6 +42,20 @@ public class TwitterClient extends OAuthBaseClient {
         getClient().get(apiUrl, params, handler);
     }
 
+
+    public void getScrollUserHomeTimeline (long since_id, String screenName, AsyncHttpResponseHandler handler)
+    {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("count",20);
+        params.put("screen_name", screenName);
+        params.put("max_id", since_id);
+        getClient().get(apiUrl, params, handler);
+
+    }
+
+
+
     public void composeNewTweet(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/update.json");
         RequestParams params = new RequestParams();
@@ -81,6 +95,26 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("count", 20);
         params.put("screen_name", screenName);
         getClient().get(apiUrl, params, handler);
+    }
+
+
+    public void getFollowingList (String screenName, AsyncHttpResponseHandler handler)
+    {
+        String apiUrl = getApiUrl("friends/list.json");
+        RequestParams params = new RequestParams();
+        params.put("screen_name", screenName);
+        getClient().get(apiUrl, params, handler);
+
+    }
+
+
+    public void getFollowersList (String screenName, AsyncHttpResponseHandler handler)
+    {
+        String apiUrl = getApiUrl("followers/list.json");
+        RequestParams params = new RequestParams();
+        params.put("screen_name", screenName);
+        getClient().get(apiUrl, params, handler);
+
     }
 
 }

@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.mysimpletweets.R;
@@ -29,11 +29,11 @@ import butterknife.ButterKnife;
 
 public class TimelineActivity extends AppCompatActivity {
 
-  //  private TweetsListFragment fragmentTweetsList;
-  //  private static long staticSinceId;
-  //  private final int REQUEST_CODE = 200;
     Toolbar toolbar;
     private TwitterClient client;
+    private ViewPager vpPager;
+    public static int composeflag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +42,21 @@ public class TimelineActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         client = TwitterApplication.getRestClient();
+        composeflag = 0;
+
 
 
         //toolbar
         setSupportActionBar(toolbar);
         // Get the viewpager
-        ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+        vpPager = (ViewPager) findViewById(R.id.viewpager);
         // set the viewpager adapter for the pager
         vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
         // find the pager sliding tabs
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         // Attach the tabstrip to the viewpager
         tabStrip.setViewPager(vpPager);
+
 
     }
 
@@ -119,7 +122,7 @@ public class TimelineActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 200) {
 
             String name = data.getExtras().getString("name");
-            Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
             Tweet recentTweet = new Tweet();
             User u = new User();
             String username = data.getExtras().getString("username");
@@ -127,17 +130,18 @@ public class TimelineActivity extends AppCompatActivity {
             u.setName(screenName);
             u.setScreenName(username);
 
-
             String userProfilePicture = data.getExtras().getString("user_profile_picture");
             u.setProfileImageUrl(userProfilePicture);
             String body = data.getExtras().getString("body");
 
+            Log.d("Body", body);
             recentTweet.setUser(u);
             recentTweet.setBody(body);
             recentTweet.setUid(45L);
+            composeflag = 1;
 
-            recentTweet.setCreatedAt(null);
-            recentTweet.setCreatedAt(null);
+
+
 
         }
     }

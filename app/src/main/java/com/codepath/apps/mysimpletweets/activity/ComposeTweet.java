@@ -56,14 +56,15 @@ public class ComposeTweet extends AppCompatActivity {
         userProfilePicture.setImageResource(android.R.color.transparent);
         Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("user_profile_image")).into(userProfilePicture);
 
-        userName.setText(getIntent().getStringExtra("username"));
+        userName.setText(getIntent().getStringExtra("screenname"));
         userName.setTextSize(25L);
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
         userName.setTypeface(font);
 
-        screenName = getIntent().getStringExtra("screenname");
-        getSupportActionBar().setTitle("New Tweet");
+        screenName = getIntent().getStringExtra("username");
+        getSupportActionBar().setTitle("@" + screenName + " New Tweet");
+
 
 
 
